@@ -11,7 +11,7 @@ if (!fs.existsSync('./newDir')) {
 }
 
 if (fs.existsSync('./newDir')) {
-	fs.rmdirSync('./newDir', (err) => {
+	fs.rm('./newDir', {recursive: true}, (err) => {
 		if (err) {
 			console.log(err);
 		} else {
