@@ -12,7 +12,7 @@ myEmitter.on('log', (message) => {
 	logEvents(message);
 });
 
-setTimeout(() => {
-	// emit log event
-	myEmitter.emit('log', 'Log event emitted');
-}, 2000);
+// setTimeout(() => {
+// 	// emit log event
+// 	myEmitter.emit('log', 'Log event emitted');
+// }, 2000);

@@ -11,7 +11,7 @@ if (!fs.existsSync('./newDir')) {
 }
 
 if (fs.existsSync('./newDir')) {
-	fs.rmdir('./newDir', (err) => {
+	fs.rmdirSync('./newDir', (err) => {
 		if (err) {
 			console.log(err);
 		} else {
