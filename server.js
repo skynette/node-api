@@ -4,6 +4,15 @@ const app = express()
 const path = require('path');
 const PORT = process.env.PORT || 3500;
 
+// built in middleware to hanlde urlencoded data
+app.use(express.urlencoded({ extended: false }))
+
+// built in middleware for json
+app.use(express.json())
+
+// built in middleware for static files
+app.use(express.static(path.join(__dirname, "/public")))
+
 app.get("^/$|/index(.html)?", (req, res) => {
 	// res.sendFile("./views/index.html", { root: __dirname })
 	res.sendFile(path.join(__dirname, "views", "index.html"))
@@ -26,7 +35,7 @@ app.get('/hello(.html)?', (req, res, next) => {
 	res.send("hello world")
 })
 
-app.get("/*", (req, res)=>{
+app.get("/*", (req, res) => {
 	res.status(404).sendFile(path.join(__dirname, "views", "404.html"))
 })
 
