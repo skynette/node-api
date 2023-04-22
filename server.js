@@ -36,15 +36,8 @@ app.use('/subdir', express.static(path.join(__dirname, "/public")))
 
 app.use("/", require('./routes/root'))
 app.use('/subdir', require('./routes/subdir'))
+app.use('/employees', require('./routes/api/employees'))
 
-
-// Route handlers
-app.get('/hello(.html)?', (req, res, next) => {
-	console.log("ATtempted to load hello html");
-	next()
-}, (req, res) => {
-	res.send("hello world")
-})
 
 app.all("*", (req, res) => {
 	res.status(404)
