@@ -10,6 +10,7 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 
 const handleLogin = async (req, res) => {
+	console.log('handleLogin');
 	const { user, pwd } = req.body;
 	if (!user || !pwd) return res.status(400).json({ 'error': 'Missing user or password' });
 
@@ -21,9 +22,15 @@ const handleLogin = async (req, res) => {
 	const match = await bcrypt.compare(pwd, foundUser.password);
 	if (!match) return res.status(401).json({ 'error': 'Invalid username or password' });
 
+	const roles = Object.values(foundUser.roles)
 	// create a jwt tokens
 	const accessToken = jwt.sign(
-		{ username: foundUser.username },
+		{
+			UserInfo: {
+				username: foundUser.username,
+				roles: roles
+			}
+		},
 		process.env.ACCESS_TOKEN_SECRET,
 		{ expiresIn: '30s' }
 	)
@@ -37,9 +44,9 @@ const handleLogin = async (req, res) => {
 	const currentUser = { ...foundUser, refreshToken };
 	usersDB.setUsers([...otherUsers, currentUser]);
 	await fsPromises.writeFile(path.join(__dirname, '../model/users.json'), JSON.stringify(usersDB.users));
-	
+
 	res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
-	res.json({ accessToken});
+	res.json({ accessToken });
 }
 
 module.exports = { handleLogin };
