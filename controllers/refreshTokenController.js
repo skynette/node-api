@@ -21,7 +21,7 @@ const handleRereshToken = (req, res) => {
 	jwt.verify(
 		refreshToken,
 		process.env.REFRESH_TOKEN_SECRET,
-		(err, user) => {
+		(err, decoded) => {
 			if (err|| foundUser.username !== decoded.username) return res.status(403).json({ 'error': 'Invalid refresh token' }); //forbidden
 			const accessToken = jwt.sign(
 				{ username: decoded.username },
