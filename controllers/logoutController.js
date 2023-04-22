@@ -17,7 +17,7 @@ const handleLogout = (req, res) => {
 	// is refresh token in the database?
 	const foundUser = usersDB.users.find(u => u.refreshToken === refreshToken);
 	if (!foundUser) {
-		res.clearCookie('jwt', { httpOnly: true });
+		res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 		return res.sendStatus(204); // no content
 	}
 
@@ -30,7 +30,7 @@ const handleLogout = (req, res) => {
 		JSON.stringify(usersDB.users)
 	)
 
-	res.clearCookie('jwt', { httpOnly: true }); // secure: true
+	res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); // secure: true
 	res.sendStatus(204); // no content
 }
 
