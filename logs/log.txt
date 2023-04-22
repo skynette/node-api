@@ -1,3 +1,5 @@
 04/22/2023	00:43:53	8f392ce3-fcc6-4bdc-b9f1-b84858abe096	/	GET
 04/22/2023	00:43:53	294aff54-af12-4133-a8ab-36272735b18f	/css/style.css	GET
 04/22/2023	00:43:54	e66bec84-6c7a-456f-8fb5-a1241be57673	/favicon.ico	GET
+04/22/2023	01:26:57	cb64aec9-288a-4277-98db-99aefa236d41	GET	undefined	/index.html
+04/22/2023	01:26:57	172bbab9-8bce-4429-97c9-80406c5dd051	GET	undefined	/css/style.css
