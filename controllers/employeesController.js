@@ -12,12 +12,12 @@ const createNewEmployee = async (req, res) => {
 	}
 	try {
 		const result = await Employee.create({
-			firstname: req.body.firstname,
-			lastname: req.body.lastname
+			firstName: req.body.firstname,
+			lastName: req.body.lastname
 		});
 		res.status(201).json(result);
 	} catch (error) {
-		console.log(error);
+		res.status(500).json({ 'error': 'An error occurred while creating the employee.' });
 	}
 }
 
@@ -31,8 +31,8 @@ const updateEmployee = async (req, res) => {
     if (!employee) {
         return res.status(204).json({ "error": `No employee matches ID` });
     }
-    if (req.body?.firstname) employee.firstname = req.body.firstname;
-    if (req.body?.lastname) employee.lastname = req.body.lastname;
+    if (req.body?.firstname) employee.firstName = req.body.firstname;
+    if (req.body?.lastname) employee.lastName = req.body.lastname;
     
 	const result = await employee.save();
 
