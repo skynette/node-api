@@ -34,11 +34,19 @@ const handleLogin = async (req, res) => {
 		{ expiresIn: '1d' }
 	)
 
-	const newRefreshTokenArray = !cookies?.jwt
+	let newRefreshTokenArray = !cookies?.jwt
 		? foundUser.refreshToken
 		: foundUser.refreshToken.filter(token => token !== cookies.jwt);
 
 	if (cookies?.jwt) {
+		const refreshToken = cookies.jwt;
+		const foundToken = await User.findOne({ refreshToken }).exec();
+
+		if (!foundToken) {
+			console.log("attempted refresh token reuse at login");
+			// clear out all previouse refresh tokens
+			newRefreshTokenArray = [];
+		}
 		res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 	}
 
