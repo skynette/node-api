@@ -37,6 +37,7 @@ const handleLogin = async (req, res) => {
 	foundUser.refreshToken = refreshToken;
 	await foundUser.save();
 
+	// create secure cookie
 	res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
 	res.json({ accessToken });
 }
